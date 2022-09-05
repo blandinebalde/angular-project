@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AppareilService } from './services/appareil.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { from, Observable, Subscription } from 'rxjs';
+import { interval } from 'rxjs';
+
+//import 'rxjs/Rx'
 
 @Component({
   selector: 'app-root',
@@ -7,10 +10,51 @@ import { AppareilService } from './services/appareil.service';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent  {
+export class AppComponent implements OnInit , OnDestroy {
+  
+  secondes !: number | number ;
+  counterSubscription : Subscription | undefined  ;
+
+  constructor(){}  
 
 
-  constructor(){}
+  ngOnDestroy(): void {
+    this.counterSubscription?.unsubscribe();
+  }
+
+
+  ngOnInit(): void {
+    //const counter  = Observable.intervale(1000);
+    const secondsCounter = interval(1000);
+    this.counterSubscription = secondsCounter.subscribe(  (value :number) => {
+      this.secondes = value;
+    })
+
+
+
+
+    // secondsCounter.subscribe(
+    //   (value :number) => {
+    //     this.secondes = value;
+    //   }, (error : any) =>{
+    //     console.log("Erreurs");
+        
+    //   }, ()=>{
+    //     console.log("Observable completé !!");
+        
+    //   }
+    // )
+
+
+  }
+
+
+
+
+
+
+
+
   // title = 'Blandine balde';
   // isAuth = false ;
   // lastUpdate = new Promise<Date>(

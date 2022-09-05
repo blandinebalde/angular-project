@@ -1,5 +1,10 @@
+import { Subject } from "rxjs";
+
 export class AppareilService{
-    appareils =[
+
+ // appareilSubject = new Subject() |  any ;
+
+     appareils =[
         {
           id : 1,
           name: "Machine á laver ",
